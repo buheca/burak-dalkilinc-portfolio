@@ -116,7 +116,7 @@ export default function GeometricVisual() {
           <text x="234" y="110" textAnchor="middle"
             fill="rgba(56,189,248,0.8)" fontSize="9" fontFamily="monospace"
           >
-            Full-Stack
+            SE Student
           </text>
         </motion.g>
 

@@ -62,7 +62,7 @@ export default function Hero() {
               variants={fadeUp}
               className="mt-5 text-lg font-medium tracking-tight text-sky-400"
             >
-              Software Engineer
+              Software Engineering Student
             </motion.p>
 
             {/* Bio */}
@@ -71,7 +71,7 @@ export default function Hero() {
               className="mt-4 text-base text-zinc-400 leading-relaxed max-w-[52ch]"
             >
               Performanslı, kullanıcı odaklı web ürünleri geliştiren bir
-              full-stack mühendis. Temiz kod, iyi tasarım ve hızlı iterasyona
+              öğrenci. Temiz kod, iyi tasarım ve hızlı iterasyona
               inanıyorum.
             </motion.p>
 
