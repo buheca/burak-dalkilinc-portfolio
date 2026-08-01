@@ -2,9 +2,30 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import ProjectCard from "./ProjectCard";
+import ProjectCard, { type Project } from "./ProjectCard";
 
-const projects = [
+// `wide` cards span the full grid width; the rest fill a 2-column row.
+const projects: Project[] = [
+  {
+    title: "Kişisel Çalışma Programı Oluşturucu",
+    tagline: "Tavlama benzetimi ile sınav planlama",
+    description:
+      "Öğrenciye sorulan çoktan seçmeli anketten bir profil çıkarıp haftalık çalışma programı üreten sistem. Greedy yerleştirici bir taban plan kuruyor, ardından ceza fonksiyonu + simulated annealing bunu iyileştiriyor; haftalık geri bildirime göre program kendini revize ediyor. Tamamen kural tabanlı ve deterministik — LLM kullanılmıyor.",
+    tags: [
+      "PHP",
+      "Laravel 12",
+      "PostgreSQL",
+      "Docker",
+      "Simulated Annealing",
+      "Bootstrap",
+    ],
+    image: "/projects/calisma-programi.png",
+    placeholder: "linear-gradient(135deg, #1c1917 0%, #3f2318 55%, #b8532b 100%)",
+    github: "https://github.com/BurakDalkilinc/dersprogram",
+    note: "Docker ile yerel kurulum",
+    wide: true,
+    year: "2026",
+  },
   {
     title: "Film Öneri Sistemi",
     tagline: "TF-IDF + KNN öneri motoru",
@@ -14,7 +35,7 @@ const projects = [
     image: "/projects/film-oneri.png",
     placeholder: "linear-gradient(135deg, #1a1200 0%, #2d1f00 40%, #3d2a00 100%)",
     href: "https://film-oneri-sistemi-burakbabavbilgehanbabavebugrababa.streamlit.app/",
-    github: "https://github.com/buheca/film-oneri-sistemi",
+    github: "https://github.com/BurakDalkilinc/film-oneri-sistemi",
     year: "2026",
   },
   {
@@ -26,7 +47,7 @@ const projects = [
     image: "/projects/graf-film.png",
     placeholder: "linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)",
     href: "https://data-structures-final-homework.vercel.app",
-    github: "https://github.com/buheca/DataStructuresFinalHomework",
+    github: "https://github.com/BurakDalkilinc/DataStructuresFinalHomework",
     year: "2026",
   },
   {
@@ -38,7 +59,7 @@ const projects = [
     image: "/projects/dis-anatomisi.png",
     placeholder: "linear-gradient(135deg, #0a0010 0%, #1a0020 50%, #0f0018 100%)",
     href: "https://teeth-omega.vercel.app",
-    github: "https://github.com/buheca/teeth",
+    github: "https://github.com/BurakDalkilinc/teeth",
     year: "2026",
   },
   {
@@ -50,7 +71,7 @@ const projects = [
     image: "/projects/dugun-anilari.png",
     placeholder: "linear-gradient(135deg, #fdf2f8 0%, #fce7f3 50%, #fbcfe8 100%)",
     href: "https://wedding-photos-brown-three.vercel.app",
-    github: "https://github.com/buheca/wedding-photos",
+    github: "https://github.com/BurakDalkilinc/wedding-photos",
     year: "2026",
   },
 ];
@@ -88,18 +109,17 @@ export default function Projects() {
           </motion.p>
         </div>
 
-        {/* 2-col grid, top row featured wide + narrow, bottom row 2 equal */}
+        {/* Featured cards span both columns; the rest fill a 2-col grid. */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {/* Top row: first card spans full width */}
-          <div className="md:col-span-2">
-            <ProjectCard project={projects[0]} index={0} wide />
-          </div>
-          <ProjectCard project={projects[1]} index={1} />
-          <ProjectCard project={projects[2]} index={2} />
-          {/* Bottom: last card full width */}
-          <div className="md:col-span-2">
-            <ProjectCard project={projects[3]} index={3} wide />
-          </div>
+          {projects.map((project, i) =>
+            project.wide ? (
+              <div key={project.title} className="md:col-span-2">
+                <ProjectCard project={project} index={i} wide />
+              </div>
+            ) : (
+              <ProjectCard key={project.title} project={project} index={i} />
+            ),
+          )}
         </div>
 
         {/* More work note */}
@@ -113,7 +133,7 @@ export default function Projects() {
           <p className="text-sm text-zinc-600">
             Daha fazlası için{" "}
             <a
-              href="https://github.com/buheca"
+              href="https://github.com/BurakDalkilinc"
               target="_blank"
               rel="noopener noreferrer"
               className="text-zinc-400 hover:text-sky-400 underline underline-offset-4 decoration-white/20 hover:decoration-sky-400/50 transition-all duration-200"

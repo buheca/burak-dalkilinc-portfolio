@@ -20,8 +20,8 @@ const contactItems = [
   {
     icon: GithubLogo,
     label: "GitHub",
-    value: "github.com/buheca",
-    href: "https://github.com/buheca",
+    value: "github.com/BurakDalkilinc",
+    href: "https://github.com/BurakDalkilinc",
     external: true,
   },
 ];

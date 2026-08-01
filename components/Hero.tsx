@@ -1,8 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import { ArrowRight, GithubLogo } from "@phosphor-icons/react";
-import GeometricVisual from "./GeometricVisual";
+
+// WebGL has no server-side equivalent — load on the client only, and hold the
+// same 420px square so the grid doesn't shift while the bundle arrives.
+const HeroScene = dynamic(() => import("./HeroScene"), {
+  ssr: false,
+  loading: () => <div className="w-full aspect-square max-w-[420px] mx-auto" />,
+});
 
 const stagger = {
   animate: { transition: { staggerChildren: 0.12, delayChildren: 0.3 } },
@@ -92,7 +99,7 @@ export default function Hero() {
                 />
               </a>
               <a
-                href="https://github.com/buheca"
+                href="https://github.com/BurakDalkilinc"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-sm font-medium text-zinc-400 hover:text-zinc-100 border border-white/[0.08] px-5 py-2.5 rounded-full hover:border-white/20 transition-all duration-200 active:scale-[0.98]"
@@ -136,7 +143,7 @@ export default function Hero() {
             }}
             className="hidden lg:block"
           >
-            <GeometricVisual />
+            <HeroScene />
           </motion.div>
         </div>
 

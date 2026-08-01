@@ -4,15 +4,17 @@ import { useRef, useState } from "react";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { ArrowUpRight, GithubLogo } from "@phosphor-icons/react";
 
-interface Project {
+export interface Project {
   title: string;
   tagline: string;
   description: string;
   tags: string[];
   image: string;
   placeholder?: string; // CSS gradient fallback
-  href: string;
+  href?: string; // live demo — absent for projects that only run locally
   github?: string;
+  note?: string; // shown when there's no live link to explain why
+  wide?: boolean; // render as a full-width featured card
   year: string;
 }
 
@@ -151,15 +153,17 @@ export default function ProjectCard({
                   <GithubLogo size={13} className="text-zinc-300" />
                 </a>
               )}
-              <a
-                href={project.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-7 h-7 rounded-lg bg-white/[0.04] border border-white/[0.07] flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-200 hover:border-sky-500/30 hover:bg-sky-500/10"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <ArrowUpRight size={13} className="text-zinc-300" />
-              </a>
+              {project.href && (
+                <a
+                  href={project.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-7 h-7 rounded-lg bg-white/[0.04] border border-white/[0.07] flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-200 hover:border-sky-500/30 hover:bg-sky-500/10"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <ArrowUpRight size={13} className="text-zinc-300" />
+                </a>
+              )}
             </div>
           </div>
           <p className="text-xs text-sky-400 font-medium mb-2">{project.tagline}</p>
@@ -171,7 +175,12 @@ export default function ProjectCard({
             {project.description}
           </p>
         </div>
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap items-center gap-1.5">
+          {project.note && (
+            <span className="text-[10px] font-mono text-zinc-400 bg-sky-500/[0.07] border border-sky-500/20 rounded px-2 py-0.5">
+              {project.note}
+            </span>
+          )}
           {project.tags.map((tag) => (
             <span
               key={tag}
